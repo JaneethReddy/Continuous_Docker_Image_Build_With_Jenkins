@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-route-deployment
+spec:
+  selector:
+    matchLabels:
+      app: api-route
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: api-route
+    spec:
+      containers:
+      - name: api-route-container
+        image: janeethreddy/task1
+        ports:
+          - containerPort: 8080
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 8080
+        #     initialDelaySeconds: 5
+        #     periodSeconds: 5
+        #     successThreshold: 1
+  
